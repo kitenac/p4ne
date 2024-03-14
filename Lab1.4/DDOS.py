@@ -3,8 +3,6 @@ import ipaddress
 
 
 
-net = 0x0 # ini value
-
 # Наследуемся от встроенного в питон объекта - ipaddress.IPv4Network
 class IPv4RandomNetwork(ipaddress.IPv4Network):
     def __init__(self):
