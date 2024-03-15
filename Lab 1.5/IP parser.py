@@ -51,7 +51,7 @@ for l in buff:
     if len(ips) != 0:
         IPs.extend(ips)
 
-IPs = set(IPs)
+IPs = set(IPs) # only uniq
 print(f'Parsed {len(IPs)} uniqe IPs:')
 for ip in IPs:
     print(ip)
