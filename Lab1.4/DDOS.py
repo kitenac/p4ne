@@ -8,11 +8,9 @@ class IPv4RandomNetwork(ipaddress.IPv4Network):
     def __init__(self):
         mask = random.randint(8, 24)
         addr = ipaddress.IPv4Address(random.randint(0x0b000000, 0xdf000000)) # от 11.0.0.0 (0x0B000000) до 223.0.0.0 (0xDF000000)
-        Network = ipaddress.IPv4Network(addr.__str__()+'/'+str(mask), strict=False)
-
-        self.netmask = Network.netmask
-        self.network_address = Network.network_address
-
+        # use of supperclass` constructer
+        ipaddress.IPv4Network.__init__(self, addr.__str__()+'/'+str(mask), strict=False)
+        # additional - ensure that ip addr isn`t private
         while self.is_private != False:
             self.network_address = ipaddress.IPv4Address(random.randint(0x0b000000, 0xdf000000))
 
