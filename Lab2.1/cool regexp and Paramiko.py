@@ -4,6 +4,7 @@ import time
 BUF_SIZE = 20000
 TIMEOUT = 1
 
+# Paramiko usage - ssh remote code exec() - for cisco router
 def terminal(command: str):
     # Создаем объект — соединение по ssh
     ssh_connection = paramiko.SSHClient()
@@ -33,9 +34,7 @@ def terminal(command: str):
 portyanka = terminal('show interface')
 
 '''
-re.match()
-
-Структура:
+Структура конфига: 
 
 GigabitEthernet1 is up, line protocol is up 
 ^-name:  r'(*) is up'
@@ -51,18 +50,20 @@ GigabitEthernet1 is up, line protocol is up
 # All output
 # print(portyanka)
 
-
+# Regexp part
 Int = re.finditer(r'([A-Za-z]{1,100}[0-9]{1,5}) is', portyanka)
+In = re.finditer(r'([0-9]{1,16}) packets input, ([0-9]{1,16}) bytes', portyanka)
+Out = re.finditer(r'([0-9]{1,16}) packets output, ([0-9]{1,16}) bytes', portyanka)
+
+
 for x in Int:
     print(x.group(1))
-
 print('\n')
-In = re.finditer(r'([0-9]{1,16}) packets input, ([0-9]{1,16}) bytes', portyanka)
+
 for x in In:
     print(f'INPUT | packets: {x.group(1)}, bytes:{x.group(2)}')
-
 print('\n')
-Out = re.finditer(r'([0-9]{1,16}) packets output, ([0-9]{1,16}) bytes', portyanka)
+
 for x in Out:
     print(f'OUT | packets: {x.group(1)}, bytes:{x.group(2)}')
 
