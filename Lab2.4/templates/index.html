@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        Задание - ЛР2.4
+        <ul>
+        {% for proc in API_info %}
+            <li>{{proc[0]}} - {{proc[1]}} KB</li>
+        {% endfor %}
+        </ul>
+        Задание - ЛР2.2<br><br>
+        {% for url in lab_urls %}
+            <a href="{{ url }}">{{url}}</a>
+            </br>
+        {% endfor %}
+
+        <br>“/" - Главная страница
+        <br>“/configs” — выдаёт сведения об именах всех хостов, для которых есть кофигурационные файлы
+        <br>“/config/hostname” — выдает сведения о всех IP-адресах этого хоста
+
+        </br></br></br>
+        </br>----------------------------------------------</br>
+        Демонстрация работы Flask и темплейта djinja - Hello, World!
+        <br>
+            <img
+                src="https://gifdb.com/images/high/adventure-time-jake-dance-b88xv8k5ldr9o1ia.gif" alt="Adventure Time Jake Dance GIF"
+                width="300px"
+            >
+        </br></br></br>
+        Страницы (урлы): {{urls}}
+        </br>
+        {% for url in urls %}
+            <a href="{{ url }}">{{url}}</a>
+            </br>
+        {% endfor %}
+    </br></br>
+        Payload - {{payload}}
+
+</head>
+<body>
+
+</body>
+</html>
