@@ -1,14 +1,34 @@
 import glob
+import sys
+
 
 # Collect everything looking like IP - preparations
-configs = glob.glob("*.log")
+configs = glob.glob(r"C:\Users\ay.alabin\PycharmProjects\p4ne\Lab1.6\*.log")
 buff = []
+
+# get array of strings - exsisting configs. configs - list of config names to get
+def get_cfgs(configs):
+    cfgs = []
+    for fl in configs:
+     with open(fl) as fl:
+        cfgs.append([])
+        for ln in fl:
+            cfgs[-1].append(ln)
+    return cfgs
+
+
+Configs_txt = [] # list of lists: each sublist is config file - list of strings
+
 for fl in configs:
+    Configs_txt.append([])
     with open(fl) as fl:
         for ln in fl:
             if ln.count('.') >= 3:
                 #print(ln)
                 buff.append(ln)
+                Configs_txt[-1].append(ln)
+
+'System name'
 
 def parse_ip(line:str):
     # each ip in line is separated by space
@@ -44,14 +64,24 @@ def parse_ip(line:str):
 
     return ips
 
-# Apply parsing for each suspended line
-IPs = []
-for l in buff:
-    ips = parse_ip(l)
-    if len(ips) != 0:
-        IPs.extend(ips)
+# Apply parsing function - for each suspended line in given list of strings
+def apply_parsing(buff, parse_smth_f):
+    smth_lst = [] # list for parsed data
+    for l in buff:
+        smth = parse_smth_f(l)
+        if len(smth) != 0:
+            smth_lst.extend(smth)
 
-IPs = set(IPs) # only uniq
-print(f'Parsed {len(IPs)} uniqe IPs:')
-for ip in IPs:
-    print(ip)
+    return set(smth_lst) # only uniq
+
+
+def get_IPs(buff_Str):
+    return apply_parsing(buff_Str, parse_smth_f=parse_ip)
+
+if __name__ == "__main__":
+    IPs = get_IPs(Configs_txt[0])
+    print(f'Parsed {len(IPs)} uniqe IPs:')
+    for ip in IPs:
+        print(ip)
+
+

@@ -1,0 +1,14 @@
+- hosts: fs-ga
+  tasks:
+  	- name: Display interfaces
+  	  commad: ifconfig -a
+  	  register: interfaces
+
+	- name: Count incoming packets
+	set_fact:
+	  packets: "{{ interfaces['stdout'] | regex_findall('RX packets ([0-9]+)') }}"
+	  sum: "{{ packets | map('int') | sum }}"
+
+	- nsme: show results
+	debug:
+	      msg: "There`s {{ sum }} packets inbound"
